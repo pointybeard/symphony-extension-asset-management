@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace pointybeard\Symphony\Extensions\ExtensionAssetManagement\Exceptions;
+namespace pointybeard\Symphony\ExtensionAssetManagement\Exceptions;
 
 class EnablingAssetFailedException extends ExtensionAssetManagementException
 {

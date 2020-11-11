@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace pointybeard\Symphony\Extensions\ExtensionAssetManagement\Assets;
+namespace pointybeard\Symphony\ExtensionAssetManagement\Assets;
 
-use pointybeard\Symphony\Extensions\ExtensionAssetManagement;
+use pointybeard\Symphony\ExtensionAssetManagement;
 
 class Content extends ExtensionAssetManagement\AbstractInstallableAsset
 {

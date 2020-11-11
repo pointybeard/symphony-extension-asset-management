@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace pointybeard\Symphony\Extensions\ExtensionAssetManagement;
+namespace pointybeard\Symphony\ExtensionAssetManagement;
 
 class DatasourceIterator extends AbstractAssetIterator
 {

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace pointybeard\Symphony\Extensions\ExtensionAssetManagement;
+namespace pointybeard\Symphony\ExtensionAssetManagement;
 
 use pointybeard\Helpers\Functions\Files;
 use pointybeard\Helpers\Functions\Flags;
