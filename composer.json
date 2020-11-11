@@ -1,0 +1,52 @@
+{
+    "name": "pointybeard/symphony-extension-asset-management",
+    "description": "Provides classes and interfaces to help manage custom Events, Datasources, Commands, Fields, and Content when enabling, disabling, installing, and uninstalling an Extension.",
+    "homepage": "https://github.com/pointybeard/symphony-extension-asset-management",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "keywords": [
+        "php",
+        "symphony",
+        "symphonycms"
+    ],
+    "authors": [
+        {
+            "name": "Alannah Kearney",
+            "email": "hi@alannahkearney.com",
+            "homepage": "http://alannahkearney.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/pointybeard/symphony-extension-asset-management/issues"
+    },
+    "require": {
+        "php": ">=7.4",
+        "pointybeard/symphony-pdo": "~0.1.0",
+        "pointybeard/helpers": "~1.2.0"
+
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "~3.0",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "damianopetrungaro/php-commitizen": "^0.1.2",
+        "php-parallel-lint/php-parallel-lint": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "pointybeard\\Symphony\\": "src/"
+        }
+    },
+    "scripts": {
+        "tidy": "php-cs-fixer fix --config=.php_cs.dist -v --using-cache=no",
+        "tidyDry": "@tidy --dry-run",
+        "test": [
+            "parallel-lint . --exclude vendor"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "process-timeout": 0
+    }
+}
