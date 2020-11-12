@@ -16,6 +16,7 @@ namespace pointybeard\Symphony\ExtensionAssetManagement;
 use pointybeard\Helpers\Functions\Files;
 use pointybeard\Helpers\Functions\Flags;
 use pointybeard\Helpers\Functions\Paths;
+use SymphonyPDO;
 
 abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetInterface
 {
@@ -33,6 +34,11 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
     {
         $this->name = $name;
         $this->extensionDirectory = realpath(__DIR__.'/../../../../../');
+    }
+
+    public function getUsedBy(): ?array
+    {
+        return [];
     }
 
     public function name(): string
@@ -60,6 +66,11 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         ;
     }
 
+    public function getDropTablesSql(): ?string
+    {
+        return null;
+    }
+
     public function install(int $flags = null): void
     {
         static::enable($flags);
@@ -73,6 +84,10 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         }
 
         static::disable();
+
+        if (true == Flags\is_flag_set($flags, self::FLAG_DROP_TABLES) && null != ($dropTableSql = static::getDropFieldSQL())) {
+            $query = SymphonyPDO\Loader::instance()->query($dropTableSql);
+        }
     }
 
     public function enable(int $flags = null): void
