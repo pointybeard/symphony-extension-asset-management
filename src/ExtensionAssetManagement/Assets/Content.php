@@ -17,4 +17,13 @@ use pointybeard\Symphony\ExtensionAssetManagement;
 
 class Content extends ExtensionAssetManagement\AbstractInstallableAsset
 {
+    public function getTargetPathname(): string
+    {
+        return $this->getExtensionDirectory().'/content/content.'.strtolower($this->name()).'.php';
+    }
+
+    public function getPathname(): string
+    {
+        return $this->getExtensionDirectory()."/src/Includes/Content/content{$this->name()}.php";
+    }
 }

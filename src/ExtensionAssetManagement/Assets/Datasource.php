@@ -29,6 +29,19 @@ class Datasource extends ExtensionAssetManagement\AbstractInstallableAsset
 
     public function getUsedBy(): ?array
     {
-        return [];
+        $query = SymphonyPDO\Loader::instance()->query(
+            "SELECT `handle`, `data_sources` FROM tbl_pages WHERE `data_sources` LIKE '%".strtolower($this->name())."%'"
+        );
+
+        $usedBy = [];
+
+        foreach($query->fetchAll() as $row) {
+            $d = explode(',', $row['data_sources']);
+            if(in_array(strtolower($this->name()), $d)) {
+                $usedBy[] = $d['handle'];
+            }
+        }
+
+        return false == empty($usedBy) ? $usedBy : null;
     }
 }
