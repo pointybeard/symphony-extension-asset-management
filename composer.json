@@ -24,7 +24,8 @@
     "require": {
         "php": ">=7.4",
         "pointybeard/symphony-pdo": "~0.1.0",
-        "pointybeard/helpers": "~1.2.0"
+        "pointybeard/helpers": "~1.2.0",
+        "pointybeard/symphony-pdo": "~0.1.7.0"
 
     },
     "require-dev": {
