@@ -71,31 +71,32 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         return null;
     }
 
-    public function install(int $flags = null): void
+    public function runPostInstallTasks(): void
     {
-        static::enable($flags);
+        // By default, this does nothing.
+        return;
     }
 
-    public function uninstall(int $flags = null): void
+    public function runPostUninstallTasks(): void
     {
-        // Check if this asset is still being used
-        if (false == Flags\is_flag_set($flags, self::FLAG_SKIP_CHECKS) && null != $locations = static::getUsedBy()) {
-            throw new Exceptions\AssetStillInUseException($this->name(), $locations);
-        }
-
-        static::disable();
-
-        if (true == Flags\is_flag_set($flags, self::FLAG_DROP_TABLES) && null != ($dropTableSql = static::getDropFieldSQL())) {
-            $query = SymphonyPDO\Loader::instance()->query($dropTableSql);
-        }
+        // By default, this does nothing.
+        return;
     }
 
-    public function enable(int $flags = null): void
+    public function runPostEnableTasks(): void
     {
-        if (self::STATUS_ENABLED == $this->status() && false == Flags\is_flag_set($flags, Files\FLAG_FORCE)) {
-            return;
-        }
+        // By default, this does nothing.
+        return;
+    }
 
+    public function runPostDisableTasks(): void
+    {
+        // By default, this does nothing.
+        return;
+    }
+
+    protected function createSymbolicLink(): void
+    {
         try {
             $cwd = getcwd();
 
@@ -111,8 +112,42 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         } catch (Files\Exceptions\Symlink\DestinationExistsException $ex) {
             // Not too worried if it already exists
         } catch (\Exception $ex) {
-            throw new Exceptions\EnablingAssetFailedException($this->name(), $ex->getMessage());
+            throw new Exceptions\SymbolicLinkCreationFailedException($this->name(), $ex->getMessage());
         }
+    }
+
+    public function install(int $flags = null): void
+    {
+        static::createSymbolicLink();
+
+        static::runPostInstallTasks();
+    }
+
+    public function uninstall(int $flags = null): void
+    {
+        // Check if this asset is still being used
+        if (false == Flags\is_flag_set($flags, self::FLAG_SKIP_CHECKS) && null != $locations = static::getUsedBy()) {
+            throw new Exceptions\AssetStillInUseException($this->name(), $locations);
+        }
+
+        static::disable();
+
+        if (true == Flags\is_flag_set($flags, self::FLAG_DROP_TABLES) && null != ($dropTableSql = static::getDropFieldSQL())) {
+            $query = SymphonyPDO\Loader::instance()->query($dropTableSql);
+        }
+
+        static::runPostUninstallTasks();
+    }
+
+    public function enable(int $flags = null): void
+    {
+        if (self::STATUS_ENABLED == $this->status() && false == Flags\is_flag_set($flags, Files\FLAG_FORCE)) {
+            return;
+        }
+
+        static::createSymbolicLink();
+
+        static::runPostEnableTasks();
     }
 
     public function disable(int $flags = null): void
@@ -129,5 +164,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         if (false == unlink(static::getTargetPathname())) {
             throw new Exceptions\DisablingAssetFailedException($this->name(), 'Unable to delete symbolic link '.$this->path());
         }
+
+        static::runPostDisableTasks();
     }
 }
