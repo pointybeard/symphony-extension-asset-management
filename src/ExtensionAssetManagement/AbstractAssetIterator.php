@@ -20,7 +20,7 @@ abstract class AbstractAssetIterator extends \RegexIterator
     protected $path = null;
     protected $pattern = null;
 
-    public function __construct(string $path, string $pattern)
+    public function __construct(string $path, string $pattern = "@(?<name>[A-z_-]+)\.php$@i")
     {
         $this->path = $path;
         $this->pattern = $pattern;
@@ -48,13 +48,6 @@ abstract class AbstractAssetIterator extends \RegexIterator
             $this->pattern,
             \RegexIterator::GET_MATCH
         );
-    }
-
-    public function current(): AbstractInstallableAsset
-    {
-        $file = (object) parent::current();
-
-        return AssetFactory::build(ucfirst($file->type), $file->name);
     }
 
     /**
