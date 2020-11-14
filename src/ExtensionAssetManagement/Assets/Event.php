@@ -35,9 +35,9 @@ class Event extends ExtensionAssetManagement\AbstractInstallableAsset
 
         $usedBy = [];
 
-        foreach($query->fetchAll() as $row) {
+        foreach ($query->fetchAll() as $row) {
             $e = explode(',', $row['events']);
-            if(in_array(strtolower($this->name()), $e)) {
+            if (in_array(strtolower($this->name()), $e)) {
                 $usedBy[] = $e['handle'];
             }
         }

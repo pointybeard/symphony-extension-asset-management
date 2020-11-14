@@ -41,6 +41,6 @@ class Field extends ExtensionAssetManagement\AbstractInstallableAsset
 
     public function getDropTablesSql(): ?string
     {
-        return "DROP TABLE IF EXISTS `tbl_fields_".strtolower($this->name())."`;";
+        return 'DROP TABLE IF EXISTS `tbl_fields_'.strtolower($this->name()).'`;';
     }
 }

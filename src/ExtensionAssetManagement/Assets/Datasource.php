@@ -35,9 +35,9 @@ class Datasource extends ExtensionAssetManagement\AbstractInstallableAsset
 
         $usedBy = [];
 
-        foreach($query->fetchAll() as $row) {
+        foreach ($query->fetchAll() as $row) {
             $d = explode(',', $row['data_sources']);
-            if(in_array(strtolower($this->name()), $d)) {
+            if (in_array(strtolower($this->name()), $d)) {
                 $usedBy[] = $d['handle'];
             }
         }
