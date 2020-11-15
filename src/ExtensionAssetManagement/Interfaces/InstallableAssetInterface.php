@@ -35,8 +35,6 @@ interface InstallableAssetInterface
 
     public function name(): string;
 
-    public function getDropTablesSql(): ?string;
-
     public function runPostInstallTasks(): void;
 
     public function runPostUninstallTasks(): void;
