@@ -124,6 +124,11 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         static::runPostInstallTasks();
     }
 
+    public function getDropTablesSql(): ?string
+    {
+        return null;
+    }
+
     public function uninstall(int $flags = self::FLAG_DROP_TABLES): void
     {
         // Check if this asset is still being used

@@ -31,6 +31,8 @@ interface InstallableAssetInterface
 
     public function getUsedBy(): ?array;
 
+    public function getDropTablesSql(): ?string;
+
     public function name(): string;
 
     public function getDropTablesSql(): ?string;
