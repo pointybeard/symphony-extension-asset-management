@@ -19,7 +19,7 @@ interface InstallableAssetInterface
 
     public function install(int $flags = null): void;
 
-    public function uninstall(int $flags = null): void;
+    public function uninstall(int $flags = self::FLAG_DROP_TABLES): void;
 
     public function enable(int $flags = null): void;
 
