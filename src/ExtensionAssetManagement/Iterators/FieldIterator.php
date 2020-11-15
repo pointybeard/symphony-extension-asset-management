@@ -15,7 +15,7 @@ namespace pointybeard\Symphony\ExtensionAssetManagement\Iterators;
 
 use pointybeard\Symphony\ExtensionAssetManagement;
 
-class FieldIterator extends AbstractAssetIterator
+class FieldIterator extends ExtensionAssetManagement\AbstractAssetIterator
 {
     public function current(): ExtensionAssetManagement\AbstractInstallableAsset
     {

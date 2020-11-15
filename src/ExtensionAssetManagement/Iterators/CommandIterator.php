@@ -15,7 +15,7 @@ namespace pointybeard\Symphony\ExtensionAssetManagement\Iterators;
 
 use pointybeard\Symphony\ExtensionAssetManagement;
 
-class CommandIterator extends AbstractAssetIterator
+class CommandIterator extends ExtensionAssetManagement\AbstractAssetIterator
 {
     public function current(): ExtensionAssetManagement\AbstractInstallableAsset
     {

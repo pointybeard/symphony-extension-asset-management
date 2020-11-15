@@ -15,7 +15,7 @@ namespace pointybeard\Symphony\ExtensionAssetManagement\Iterators;
 
 use pointybeard\Symphony\ExtensionAssetManagement;
 
-class EventIterator extends AbstractAssetIterator
+class EventIterator extends ExtensionAssetManagement\AbstractAssetIterator
 {
     public function current(): ExtensionAssetManagement\AbstractInstallableAsset
     {
