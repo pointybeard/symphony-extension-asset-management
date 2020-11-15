@@ -29,6 +29,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
     public const FLAG_NONE = 0x0000;
     public const FLAG_SKIP_CHECKS = 0x0001;
     public const FLAG_FORCE = 0x0002;
+    public const FLAG_DROP_TABLES = 0x0004;
 
     public function __construct(string $name)
     {
@@ -123,7 +124,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         static::runPostInstallTasks();
     }
 
-    public function uninstall(int $flags = null): void
+    public function uninstall(int $flags = self::FLAG_DROP_TABLES): void
     {
         // Check if this asset is still being used
         if (false == Flags\is_flag_set($flags, self::FLAG_SKIP_CHECKS) && null != $locations = static::getUsedBy()) {
