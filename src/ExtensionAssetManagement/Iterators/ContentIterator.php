@@ -21,6 +21,6 @@ class ContentIterator extends ExtensionAssetManagement\AbstractAssetIterator
     {
         $file = (object) parent::current();
 
-        return ExtensionAssetManagement\AssetFactory::build('Content', $file->name);
+        return ExtensionAssetManagement\AssetFactory::build('Content', $file->name, $this->extensionDirectory);
     }
 }

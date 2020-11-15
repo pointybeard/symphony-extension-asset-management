@@ -21,6 +21,6 @@ class DatasourceIterator extends ExtensionAssetManagement\AbstractAssetIterator
     {
         $file = (object) parent::current();
 
-        return ExtensionAssetManagement\AssetFactory::build('Datasource', $file->name);
+        return ExtensionAssetManagement\AssetFactory::build('Datasource', $file->name, $this->extensionDirectory);
     }
 }

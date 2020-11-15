@@ -31,10 +31,10 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
     public const FLAG_FORCE = 0x0002;
     public const FLAG_DROP_TABLES = 0x0004;
 
-    public function __construct(string $name)
+    public function __construct(string $name, string $location = null)
     {
         $this->name = $name;
-        $this->extensionDirectory = realpath(__DIR__.'/../../../../../');
+        $this->extensionDirectory = $location ?? realpath(__DIR__.'/../../../../../');
     }
 
     public function getUsedBy(): ?array
@@ -65,11 +65,6 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
             ? self::STATUS_ENABLED
             : self::STATUS_DISABLED
         ;
-    }
-
-    public function getDropTablesSql(): ?string
-    {
-        return null;
     }
 
     public function runPostInstallTasks(): void
@@ -138,7 +133,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
 
         static::disable();
 
-        if (true == Flags\is_flag_set($flags, self::FLAG_DROP_TABLES) && null != ($dropTableSql = static::getDropFieldSQL())) {
+        if (true == Flags\is_flag_set($flags, self::FLAG_DROP_TABLES) && null != ($dropTableSql = static::getDropTablesSql())) {
             $query = SymphonyPDO\Loader::instance()->query($dropTableSql);
         }
 

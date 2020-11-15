@@ -19,11 +19,25 @@ abstract class AbstractAssetIterator extends \RegexIterator
 {
     protected $path = null;
     protected $pattern = null;
+    protected $extension = null;
 
     public function __construct(string $path, string $pattern = "@(?<name>[A-z_-]+)\.php$@i")
     {
         $this->path = $path;
         $this->pattern = $pattern;
+        $this->extension = null;
+        $this->extensionDirectory = null;
+
+        // Since this is a composer library, we cannot rely on being in
+        // the vendor folder of the calling extension. So, instead, lets
+        // use the $path to deduce where we are
+        preg_match("@extensions/([^/]+)@i", $this->path, $match);
+
+        [,$this->extension] = $match;
+
+        if($this->extension !== null) {
+            $this->extensionDirectory = EXTENSIONS . "/{$this->extension}";
+        }
 
         // Create the AssetFactory class if it doesn't already exist
         if (false == class_exists(__NAMESPACE__.'\\AssetFactory')) {
