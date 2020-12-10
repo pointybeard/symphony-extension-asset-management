@@ -91,7 +91,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         return;
     }
 
-    protected function createSymbolicLink(): void
+    protected function createSymbolicLink(?int $flags = self::FLAG_NONE): void
     {
         try {
             $cwd = getcwd();
@@ -112,7 +112,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         }
     }
 
-    public function install(int $flags = null): void
+    public function install(int $flags = self::FLAG_NONE): void
     {
         static::createSymbolicLink();
 
@@ -140,7 +140,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         static::runPostUninstallTasks();
     }
 
-    public function enable(int $flags = null): void
+    public function enable(int $flags = self::FLAG_NONE): void
     {
         if (self::STATUS_ENABLED == $this->status() && false == Flags\is_flag_set($flags, Files\FLAG_FORCE)) {
             return;
@@ -151,7 +151,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         static::runPostEnableTasks();
     }
 
-    public function disable(int $flags = null): void
+    public function disable(int $flags = self::FLAG_NONE): void
     {
         if (self::STATUS_ENABLED != $this->status() || false == is_link(static::getTargetPathname())) {
             return;
