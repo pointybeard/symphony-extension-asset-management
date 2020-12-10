@@ -15,11 +15,19 @@ namespace pointybeard\Symphony\ExtensionAssetManagement\Interfaces;
 
 interface InstallableAssetInterface
 {
+    public const STATUS_ENABLED = 'enabled';
+    public const STATUS_DISABLED = 'disabled';
+
+    public const FLAG_NONE = 0x0000;
+    public const FLAG_SKIP_CHECKS = 0x0001;
+    public const FLAG_FORCE = 0x0002;
+    public const FLAG_DROP_TABLES = 0x0004;
+
     public function status(): string;
 
     public function install(?int $flags = self::FLAG_NONE): void;
 
-    public function uninstall(int $flags = self::FLAG_DROP_TABLES): void;
+    public function uninstall(?int $flags = self::FLAG_DROP_TABLES): void;
 
     public function enable(?int $flags = self::FLAG_NONE): void;
 

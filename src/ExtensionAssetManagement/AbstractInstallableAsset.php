@@ -23,14 +23,6 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
     private $extensionDirectory;
     private $name;
 
-    public const STATUS_ENABLED = 'enabled';
-    public const STATUS_DISABLED = 'disabled';
-
-    public const FLAG_NONE = 0x0000;
-    public const FLAG_SKIP_CHECKS = 0x0001;
-    public const FLAG_FORCE = 0x0002;
-    public const FLAG_DROP_TABLES = 0x0004;
-
     public function __construct(string $name, string $location = null)
     {
         $this->name = $name;
@@ -112,7 +104,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         }
     }
 
-    public function install(int $flags = self::FLAG_NONE): void
+    public function install(?int $flags = self::FLAG_NONE): void
     {
         static::createSymbolicLink();
 
@@ -124,7 +116,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         return null;
     }
 
-    public function uninstall(int $flags = self::FLAG_DROP_TABLES): void
+    public function uninstall(?int $flags = self::FLAG_DROP_TABLES): void
     {
         // Check if this asset is still being used
         if (false == Flags\is_flag_set($flags, self::FLAG_SKIP_CHECKS) && null != $locations = static::getUsedBy()) {
@@ -140,7 +132,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         static::runPostUninstallTasks();
     }
 
-    public function enable(int $flags = self::FLAG_NONE): void
+    public function enable(?int $flags = self::FLAG_NONE): void
     {
         if (self::STATUS_ENABLED == $this->status() && false == Flags\is_flag_set($flags, Files\FLAG_FORCE)) {
             return;
@@ -151,7 +143,7 @@ abstract class AbstractInstallableAsset implements Interfaces\InstallableAssetIn
         static::runPostEnableTasks();
     }
 
-    public function disable(int $flags = self::FLAG_NONE): void
+    public function disable(?int $flags = self::FLAG_NONE): void
     {
         if (self::STATUS_ENABLED != $this->status() || false == is_link(static::getTargetPathname())) {
             return;
