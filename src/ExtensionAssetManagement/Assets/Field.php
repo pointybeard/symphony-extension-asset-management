@@ -25,7 +25,7 @@ class Field extends ExtensionAssetManagement\AbstractInstallableAsset
 
     public function getPathname(): string
     {
-        return $this->getExtensionDirectory()."/src/Includes/Fields/field{$this->name()}.php";
+        return $this->getExtensionDirectory()."/src/Includes/Fields/{$this->name()}.php";
     }
 
     public function getUsedBy(): ?array

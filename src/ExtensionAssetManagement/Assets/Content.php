@@ -24,6 +24,6 @@ class Content extends ExtensionAssetManagement\AbstractInstallableAsset
 
     public function getPathname(): string
     {
-        return $this->getExtensionDirectory()."/src/Includes/Content/content{$this->name()}.php";
+        return $this->getExtensionDirectory()."/src/Includes/Content/{$this->name()}.php";
     }
 }

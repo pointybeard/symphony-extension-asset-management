@@ -24,7 +24,7 @@ class Event extends ExtensionAssetManagement\AbstractInstallableAsset
 
     public function getPathname(): string
     {
-        return $this->getExtensionDirectory()."/src/Includes/Events/event{$this->name()}.php";
+        return $this->getExtensionDirectory()."/src/Includes/Events/{$this->name()}.php";
     }
 
     public function getUsedBy(): ?array

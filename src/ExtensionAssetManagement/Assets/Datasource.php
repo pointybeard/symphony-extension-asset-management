@@ -24,7 +24,7 @@ class Datasource extends ExtensionAssetManagement\AbstractInstallableAsset
 
     public function getPathname(): string
     {
-        return $this->getExtensionDirectory()."/src/Includes/Datasources/datasource{$this->name()}.php";
+        return $this->getExtensionDirectory()."/src/Includes/Datasources/{$this->name()}.php";
     }
 
     public function getUsedBy(): ?array
