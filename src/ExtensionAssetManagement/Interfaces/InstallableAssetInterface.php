@@ -17,13 +17,13 @@ interface InstallableAssetInterface
 {
     public function status(): string;
 
-    public function install(int $flags = null): void;
+    public function install(?int $flags = self::FLAG_NONE): void;
 
     public function uninstall(int $flags = self::FLAG_DROP_TABLES): void;
 
-    public function enable(int $flags = null): void;
+    public function enable(?int $flags = self::FLAG_NONE): void;
 
-    public function disable(int $flags = null): void;
+    public function disable(?int $flags = self::FLAG_NONE): void;
 
     public function getPathname(): string;
 
